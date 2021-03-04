@@ -18,6 +18,17 @@ class UserController{
 
     return res.status(201).json(user);
   }
+
+  public async getUsers(req: Request, res: Response) {
+    const repository = getRepository(User);
+
+    const userExists = await repository.find();
+    if (!userExists) {
+      return res.sendStatus(409);
+    }
+
+    return res.status(201).json(userExists);
+  }
 }
 
 export default new UserController();
